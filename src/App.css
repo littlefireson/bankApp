@@ -1,0 +1,164 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 58px;
+  padding: 6px;
+  color: white;
+}
+.Top-div{
+  background-color: #fff;
+  padding:10px;
+}
+.Top-div b{
+  font-size:24px;
+}
+.Top-div-content-title{
+  font-size: 18px;
+  padding:0 14px;
+}
+.Top-div-content{
+  text-align: left;
+  font-size: 16px;
+}
+.Top-div-content p{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+.Top-div-content-list{
+  margin:0 40px;
+  border-bottom: 1px solid #999;
+}
+.Top-div-content-list span{
+  float: right;
+}
+.Top-div-content-list-total{
+  margin-right:40px;
+  overflow: hidden;
+}
+.Top-div-content-list-total span{
+  float: right;
+  color: #FF9900;
+}
+.Bottom-div{
+  margin-bottom:15px;
+}
+.fenqi-modal{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color:#fff; 
+  display: flex;
+}
+.signIn-content{
+  margin-top:50px;
+  margin-bottom:50px;
+  padding:0 20px;
+  background: #fff;
+}
+.fixed-bottom{
+  position: fixed;
+  bottom:0;
+  left:0;
+  height:45px;
+  width:100%;
+  z-index: 999;
+}
+.fenqi-modal .header{
+  position: fixed;
+  height:50px;
+  width: 100%;
+  background:#1DA57A;
+  height: 45px;
+  color: #fff;
+}
+.wrapper{
+  margin-top:50px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y:auto; 
+  height:auto;
+  width: 100%;
+}
+.close-modal{
+  position: absolute;
+  left: 15px;
+  top: 11px;
+}
+.fixed-content{
+  position:fixed;
+}
+.fixed-div{
+  overflow-y: scroll; overflow-x: hidden;
+}
+.fenqi-modal image{
+  position: absolute;
+  left: 0;
+  top:0;
+  z-index: 1000;
+  width:100%;
+  height:100%;
+}
+.fenqiContent{
+  background-color:rgb(102, 102, 102);
+  color:#fff;
+  padding: 1px;
+  font-size: 18px;
+}
+.fenqi-fixed{
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  background: rgb(102, 102, 102);
+}
+.fenqi-list{
+  margin-top:179px;
+  padding-left:  20px;
+  padding-right:  20px;
+  background: #fff;
+}
+.fenqi-list span{
+  float: right;
+  color:#FF9900;
+}
+.fenqi-list-content{
+  padding:0 40px;
+}
+.fenqi-modal-content{
+  overflow: hidden visible;
+  height: auto;
+  position: relative;
+  display: block;
+}
+.Top-div-p{
+  font-size:18px;
+  text-align: left;
+  border-bottom: 1px dashed #999;
+  padding-bottom:5px;
+}
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.am-list-item .am-list-line .am-list-content {
+  display: flex;
+}
+.calendar-list .right {
+    float: right;
+}
