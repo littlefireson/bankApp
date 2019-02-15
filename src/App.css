@@ -162,3 +162,15 @@
 .calendar-list .right {
     float: right;
 }
+.cardIdTitle{
+  text-align: center;
+}
+.cardId,.backCardId {
+  text-align: center;
+}
+.cardId :global(.am-image-picker-list .am-flexbox .am-flexbox-item:after){
+  padding-bottom:60%;
+}
+.backCardId :global(.am-image-picker-list .am-flexbox .am-flexbox-item:after){
+  padding-bottom:60%;
+}

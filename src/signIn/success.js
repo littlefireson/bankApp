@@ -1,22 +1,16 @@
 import React, { Component } from 'react';
-import { Button , InputItem ,List ,WingBlank, WhiteSpace } from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
 import dsa from '../images/12312.gif'
 
-const Item = List.Item;
-const Brief = Item.Brief;
 
 class Success extends Component{
-    constructor(props){
-        super(props)
-    }
     submit=()=>{
         // console.log(this.props)
         this.props.history.push('/about');
     }
     render() {
-        const header = '还款计划表'
+        const header = '签署成功'
         // const { getFieldProps } = this.props.form;
         return (
             <div className={style.App}>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Button , InputItem ,WingBlank, WhiteSpace } from 'antd-mobile';
+import { Button , Flex,InputItem ,WingBlank, WhiteSpace } from 'antd-mobile';
 import Nav from '../header/header';
 import ImagePickerExample from '../imagePicker/imagePicker';
-
+import style from '../App.css';
 class About extends Component{
     submit=()=>{
         this.props.history.push('/plan');
@@ -12,7 +12,18 @@ class About extends Component{
     return (
         <div>
             <Nav  {...this.props} header={header}></Nav>
-            <ImagePickerExample/>
+            <p className={style['cardIdTitle']}>请拍摄实体身份证，并录入信息</p>
+            <Flex>
+                <Flex.Item className={style['cardId']}>
+                    <ImagePickerExample/>
+                    <span>请上传身份证正面</span>
+                </Flex.Item>
+                <Flex.Item className={style['backCardId']}>
+                    <ImagePickerExample/>
+                    <span>请上传身份证反面</span>
+                </Flex.Item>
+            </Flex>
+            <WhiteSpace/>
             <WingBlank  size="md">
                     <InputItem
                         type='text'

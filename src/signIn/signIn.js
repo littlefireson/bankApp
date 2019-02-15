@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { Button , InputItem ,List ,WingBlank, Toast ,Modal} from 'antd-mobile';
+import { Button  ,WingBlank, Toast ,Modal} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
 
-const Item = List.Item;
-const Brief = Item.Brief;
 const prompt = Modal.prompt;
 
 class SignIn extends Component{
-    constructor(props){
-        super(props)
-    }
     submit=()=>{
         
     }
@@ -75,13 +70,14 @@ class SignIn extends Component{
                             { text: '取消' },
                             {
                                 text: '提交',
+                                
                                 onPress: value => new Promise((resolve, reject) => {
                                   
                                   setTimeout(() => {
-                                      if(value != ''){
+                                      if(value !== ''){
 
                                       
-                                      if(value == '8888'){
+                                      if(value === '8888'){
                                         resolve();
                                         this.props.history.push('/success')
                                       }else{

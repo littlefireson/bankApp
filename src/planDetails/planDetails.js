@@ -30,73 +30,73 @@ class PlanDetails extends Component{
             <div className={style['fenqi-list']}>
                 <List>
                     <Item>
-                        <p>第一期：2019-1-25<span>4231.00元</span></p>
+                        <p>第一期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第二期：2019-1-25<span>4231.00元</span></p>
+                        <p>第二期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第三期：2019-1-25<span>4231.00元</span></p>
+                        <p>第三期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第四期：2019-1-25<span>4231.00元</span></p>
+                        <p>第四期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第五期：2019-1-25<span>4231.00元</span></p>
+                        <p>第五期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第六期：2019-1-25<span>4231.00元</span></p>
+                        <p>第六期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第七期：2019-1-25<span>4231.00元</span></p>
+                        <p>第七期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第八期：2019-1-25<span>4231.00元</span></p>
+                        <p>第八期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第九期：2019-1-25<span>4231.00元</span></p>
+                        <p>第九期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十期：2019-1-25<span>4231.00元</span></p>
+                        <p>第十期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十一期：2019-1-25<span>4231.00元</span></p>
+                        <p>第十一期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十二期：2019-1-25<span>4231.00元</span></p>
+                        <p>第十二期：2019-1-25<span>4000.00元</span></p>
                         <div className={style['fenqi-list-content']}>
                             <p>本金：4000.00元</p>
                         </div>

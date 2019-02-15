@@ -15,27 +15,41 @@ class Login extends Component{
     constructor(props){
         super(props)
         this.state = {
-            emailFlag:false,
-            phoneFlag:false,
-            codeFlag:false
+            emailValue:"",
+            phoneValue:"",
+            codeValue:"",
+            emailError:false,
+            phoneError:false,
         }
     }
     submit=()=>{
         const {
-            emailFlag,
-            phoneFlag,
-            codeFlag
+            emailValue,
+            phoneValue,
+            codeValue,
+            emailError,
+            phoneError,
         } = this.state;
         // console.log(this.props)
-        if(emailFlag&&phoneFlag&&codeFlag){
-            this.props.history.push('/about');
+        if(emailValue ==='' ||emailError){
+            Toast.fail('未填写邮箱或格式不正确')
+            return;
         }
-        else{
-            Toast.fail('信息错误')
+        if(phoneValue ==='' ||phoneError){
+            Toast.fail('未填写手机号或格式不正确')
+            return;
         }
+        if(codeValue ===''){
+            Toast.fail('请填写验证码')
+            return;
+        }
+        if(codeValue !=='8888'){
+            Toast.fail('验证码错误')
+            return;
+        }
+        this.props.history.push('/about');
     }
     render() {
-        console.log(this.props)
         // const { getFieldProps } = this.props.form;
         return (
             <div >
@@ -47,24 +61,26 @@ class Login extends Component{
                     <InputItem
                         type='url'
                         placeholder="请输入邮箱"
-                        error={true}
+                        clear
+                        error={this.state.emailError && this.state.emailValue!==""}
                         onChange={(value)=>{
-                            if (value.replace(/\s/g, '').length < 11) {
+                            if (value !== ' ' && value.replace(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g, '')) {
                                 this.setState({
-                                    emailFlag: true,
+                                    emailError: true,
                                 });
-                                } else {
+                            } else {
                                 this.setState({
-                                    emailFlag: false,
+                                    emailError: false,
                                 });
-                                }
-                            console.log(value)
+                            }
+                            this.setState({
+                                emailValue:value
+                            })
                         }}
                         onErrorClick={()=>{
-                            if (!this.state.emailFlag) {
-                                Toast.info('邮箱格式不正确');
-                            }
+                            Toast.info('邮箱格式不正确');
                         }}
+                        value = {this.state.emailValue}
                         // moneyKeyboardAlign="left"
                         // moneyKeyboardWrapProps={moneyKeyboardWrapProps}
                     >电子邮箱
@@ -75,11 +91,30 @@ class Login extends Component{
                 <InputItem
                     type='phone'
                     placeholder="请输入手机号"
-                    extra="发送验证码"
-                    onExtraClick={()=>{
-                        console.log('1111')
-                    }}
                     clear
+                    extra={!this.state.phoneError && this.state.phoneValue!==""?"获取验证码":''}
+                    onExtraClick={()=>{
+
+                    }}
+                    error={this.state.phoneError && this.state.phoneValue!==""}
+                    onChange={(value)=>{
+                        if (value.replace(/\s/g, '').length<11) {
+                            this.setState({
+                                phoneError: true,
+                            });
+                        } else {
+                            this.setState({
+                                phoneError: false,
+                            });
+                        }
+                        this.setState({
+                            phoneValue:value
+                        })
+                    }}
+                    onErrorClick={()=>{
+                        Toast.info('邮箱格式不正确');
+                    }}
+                    value = {this.state.phoneValue}
                     // moneyKeyboardAlign="left"
                     // moneyKeyboardWrapProps={moneyKeyboardWrapProps}
                 >手机号
@@ -91,8 +126,13 @@ class Login extends Component{
                     type='number'
                     placeholder="请输入验证码"
                     clear
-                    // moneyKeyboardAlign="left"
-                    // moneyKeyboardWrapProps={moneyKeyboardWrapProps}
+                    onChange={(value)=>{
+                        this.setState({
+                            codeValue:value
+                        })
+                    }}
+                    maxLength={4}
+                    value = {this.state.codeValue}
                 >验证码
                 </InputItem>
                 </WingBlank>
