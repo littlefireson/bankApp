@@ -20,7 +20,11 @@ class Login extends Component{
             codeValue:"",
             emailError:false,
             phoneError:false,
+            codeShow:false,
+            codeMsg:"获取验证码",
+            maxtime:3,
         }
+
     }
     submit=()=>{
         const {
@@ -48,6 +52,21 @@ class Login extends Component{
             return;
         }
         this.props.history.push('/about');
+    }
+    countDown(){
+        var msg = ""
+        this.timer = setInterval(()=>{
+            const {maxtime}=this.state;
+            if(maxtime >=1){
+                var seconds = Math.floor(maxtime % 60);
+                msg = seconds + "秒";
+                this.setState({ maxtime: maxtime - 1 ,codeMsg:msg});
+            }else{
+                msg = "重新获取验证码";
+                this.setState({ codeMsg:msg});
+                clearInterval(this.timer);
+            }
+        },1000)
     }
     render() {
         // const { getFieldProps } = this.props.form;
@@ -92,9 +111,22 @@ class Login extends Component{
                     type='phone'
                     placeholder="请输入手机号"
                     clear
-                    extra={!this.state.phoneError && this.state.phoneValue!==""?"获取验证码":''}
+                    extra={!this.state.phoneError && this.state.phoneValue!==""?this.state.codeMsg:''}
                     onExtraClick={()=>{
-
+                        
+                        this.setState({
+                            codeShow:true
+                        })
+                        if(this.state.maxtime<=1){
+                            console.log(this.state.maxtime)
+                            this.setState({
+                                maxtime:59
+                            }, ()=> {
+                                this.countDown();
+                            })
+                        }else{
+                            this.countDown();
+                        }
                     }}
                     error={this.state.phoneError && this.state.phoneValue!==""}
                     onChange={(value)=>{
@@ -122,7 +154,7 @@ class Login extends Component{
                 </WingBlank>
                 <WhiteSpace size="lg" />
                 <WingBlank  size="md">
-                <InputItem
+                {this.state.codeShow&&<InputItem
                     type='number'
                     placeholder="请输入验证码"
                     clear
@@ -134,7 +166,7 @@ class Login extends Component{
                     maxLength={4}
                     value = {this.state.codeValue}
                 >验证码
-                </InputItem>
+                </InputItem>}
                 </WingBlank>
                 <WhiteSpace size="lg" />
                 <WingBlank  size="md">
