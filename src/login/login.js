@@ -22,7 +22,8 @@ class Login extends Component{
             phoneError:false,
             codeShow:false,
             codeMsg:"获取验证码",
-            maxtime:3,
+            maxtime:59,
+            codeClick:true
         }
 
     }
@@ -33,6 +34,7 @@ class Login extends Component{
             codeValue,
             emailError,
             phoneError,
+            codeClick
         } = this.state;
         // console.log(this.props)
         if(emailValue ==='' ||emailError){
@@ -47,26 +49,28 @@ class Login extends Component{
             Toast.fail('请填写验证码')
             return;
         }
-        if(codeValue !=='8888'){
+        console.log(codeClick)
+        if((codeValue !=='8888')){
             Toast.fail('验证码错误')
             return;
         }
         this.props.history.push('/about');
     }
-    countDown(){
-        var msg = ""
-        this.timer = setInterval(()=>{
-            const {maxtime}=this.state;
-            if(maxtime >=1){
-                var seconds = Math.floor(maxtime % 60);
-                msg = seconds + "秒";
-                this.setState({ maxtime: maxtime - 1 ,codeMsg:msg});
-            }else{
-                msg = "重新获取验证码";
-                this.setState({ codeMsg:msg});
-                clearInterval(this.timer);
-            }
-        },1000)
+    countDown(){    
+        
+            var msg = ""
+            this.timer = setInterval(()=>{
+                const {maxtime}=this.state;
+                if(maxtime >=1){
+                    var seconds = Math.floor(maxtime % 60);
+                    msg = "重新发送"+seconds ;
+                    this.setState({ maxtime: maxtime - 1 ,codeMsg:msg});
+                }else{
+                    msg = "重新获取验证码";
+                    this.setState({ codeMsg:msg, codeClick:true});
+                    clearInterval(this.timer);
+                }
+            },1000)
     }
     render() {
         // const { getFieldProps } = this.props.form;
@@ -113,19 +117,23 @@ class Login extends Component{
                     clear
                     extra={!this.state.phoneError && this.state.phoneValue!==""?this.state.codeMsg:''}
                     onExtraClick={()=>{
-                        
-                        this.setState({
-                            codeShow:true
-                        })
-                        if(this.state.maxtime<=1){
-                            console.log(this.state.maxtime)
+                        if(this.state.codeClick){
                             this.setState({
-                                maxtime:59
-                            }, ()=> {
-                                this.countDown();
+                                codeShow:true,
+                                codeClick:false
+                            },()=>{
+                                if(this.state.maxtime<1){
+                                    console.log(this.state.maxtime)
+                                    this.setState({
+                                        maxtime:59,
+                                    }, ()=> {
+                                        this.countDown();
+                                    })
+                                }else{
+                                    console.log(this.state.maxtime)
+                                    this.countDown();
+                                }
                             })
-                        }else{
-                            this.countDown();
                         }
                     }}
                     error={this.state.phoneError && this.state.phoneValue!==""}

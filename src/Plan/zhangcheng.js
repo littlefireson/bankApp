@@ -9,7 +9,7 @@ class ZhangCheng extends Component{
     render(){
         return (
             <div>
-                <div style={{overflowY: "hidden",textAlign:'left', cursor: "text", height: "5730px"}}>
+                <div style={{padding:'0 20px',overflowY: "hidden",textAlign:'left', cursor: "text", height: "5730px"}}>
                 <p>中国民生银行民生信用卡章程</p>
                 <p>第一章&nbsp; 总则</p>
                 <p>第一条 为了向社会各界提供更好的信用支付工具，促进我国传统货币</p>
