@@ -1,16 +1,76 @@
 import React, { Component } from 'react';
-import { Button  ,WingBlank, Toast ,Modal} from 'antd-mobile';
+import { Button  ,WingBlank, Toast ,Modal,InputItem} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
+import Input from 'antd-mobile/lib/input-item/Input';
 
 const prompt = Modal.prompt;
-
+function closest(el, selector) {
+    const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
+    while (el) {
+        if (matchesSelector.call(el, selector)) {
+        return el;
+        }
+        el = el.parentElement;
+    }
+    return null;
+}
 class SignIn extends Component{
-    submit=()=>{
-        
+    constructor(props){
+        super(props)
+        this.state = {
+            codeMsg:"获取验证码",
+            maxtime:59,
+            codeClick:true,
+            modal1: false,
+            inputValue:''
+        }
+
+    }
+    countDown(){    
+        console.log('count')
+        var msg = ""
+        this.timer = setInterval(()=>{
+            const {maxtime}=this.state;
+            if(maxtime >=1){
+                var seconds = Math.floor(maxtime % 60);
+                msg = "重新发送"+seconds ;
+                this.setState({ maxtime: maxtime - 1 ,codeMsg:msg});
+            }else{
+                msg = "重新获取验证码";
+                this.setState({ codeMsg:msg, codeClick:true});
+                clearInterval(this.timer);
+            }
+        },1000)
+    }
+    showModal = key => (e) => {
+        e.preventDefault(); // 修复 Android 上点击穿透
+        this.setState({
+            [key]: true,
+        });
+        if(this.state.codeClick){
+            this.countDown();
+        };
+    }
+    onClose = key => () => {
+    this.setState({
+        [key]: false,
+    });
+    }
+    onWrapTouchStart = (e) => {
+        // fix touch to scroll background page on iOS
+        if (!/iPhone|iPod|iPad/i.test(navigator.userAgent)) {
+            return;
+        }
+        const pNode = closest(e.target, '.am-modal-content');
+        if (!pNode) {
+            e.preventDefault();
+        }
     }
     render() {
         const header = '签署补充协议'
+        console.log(this.state.codeMsg)
+        const {inputValue}  = this.state;
         // const { getFieldProps } = this.props.form;
         return (
             <div>
@@ -63,37 +123,117 @@ class SignIn extends Component{
             </div>
                 <div className={style['fixed-bottom']}>
                     <WingBlank>
-                        <Button type="primary" onClick={() => prompt(
+                    <Button type="primary" onClick={this.showModal('modal1')}>确认签署补充协议</Button>
+        {/* <WhiteSpace /> */}
+        <Modal
+          visible={this.state.modal1}
+          transparent
+          maskClosable={false}
+          onClose={this.onClose('modal1')}
+          title="请输入验证码"
+          footer={[{ text: 'Ok', onPress: () => { 
+            setTimeout(() => {
+                        if(inputValue !== ''){
+                            if(inputValue === '8888'){
+                            this.onClose('modal1')();
+                            this.props.history.push('/success')
+                            }else{
+                            Toast.info('验证码错误', 1);
+                        }
+                    }else{
+                        Toast.info('请输入验证码', 1);
+                    }
+                    }, 1000);  
+             } }]}
+          wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+          afterClose={() => { alert('afterClose'); }}
+        >
+          <div style={{ height: 100, overflow: 'scroll' }}>
+            {this.state.codeMsg}
+            <div>
+                <div className="sign-input">
+                    <label>
+                        <InputItem 
+                        onChange={(value)=>{
+                            this.setState({
+                                inputValue:value
+                            })
+                        }} 
+                        value={inputValue}
+                        maxLength={4}
+                        ></InputItem>
+                    </label>
+                </div>
+            </div>
+          </div>
+        </Modal>
+                        {/* <Button type="primary" onClick={()=>{this.showModal('modal1')}}>
+                            确认签署补充协议
+                        </Button>
+                        <Modal
+                            visible={this.state.modal1}
+                            // transparent
+                            // maskClosable={false}
+                            // onClose={this.onClose('modal1')}
+                            title='请输入验证码'
+                        //     footer={[{ text: 'Ok', onPress: () => {setTimeout(() => {
+                        //         if(inputValue !== ''){
+                        //             if(inputValue === '8888'){
+                        //             this.props.history.push('/success')
+                        //             }else{
+                        //             Toast.info('验证码错误', 1);
+                        //         }
+                        //     }else{
+                        //         Toast.info('请输入验证码', 1);
+                        //     }
+                        //     }, 1000);
+                        // } }]}
+                            // wrapProps={{ onTouchStart: this.onWrapTouchStart }}
+                            // afterClose={() => { alert('afterClose'); }}
+                            >
+                            <div style={{ height: 100, overflow: 'scroll' }}>
+                                scoll content...<br />
+                                scoll content...<br />
+                                scoll content...<br />
+                                scoll content...<br />
+                                `${this.state.codeMsg}`
+                                <Input value={inputValue} />
+                            </div>
+                        </Modal> */}
+                        {/* <Button type="primary" onClick={() => {
+                            if(this.state.codeClick){
+                                this.countDown();
+                            };
+                            prompt(
                         '请输入验证码',
-                        '验证码已发送至130****1234的手机上，请查收',
+                        React.createElement('h1', {id: 'recipe', 'data-type': 'title'}, `${this.state.codeMsg}`),
+                        
                         [
                             { text: '取消' },
                             {
                                 text: '提交',
                                 
                                 onPress: value => new Promise((resolve, reject) => {
-                                  
-                                  setTimeout(() => {
-                                      if(value !== ''){
-
-                                      
-                                      if(value === '8888'){
-                                        resolve();
-                                        this.props.history.push('/success')
-                                      }else{
-                                        reject();
-                                        Toast.info('验证码错误', 1);
-                                      }
+                                    setTimeout(() => {
+                                        if(value !== ''){
+                                            if(value === '8888'){
+                                            resolve();
+                                            this.props.history.push('/success')
+                                            }else{
+                                            reject();
+                                            Toast.info('验证码错误', 1);
+                                        }
                                     }else{
                                         reject();
                                         Toast.info('请输入验证码', 1);
                                     }
-                                  }, 1000);
+                                    }, 1000);
                                 }),
                               },
+
                         ],
                         'default', null,
-                        )}>确认签署补充协议</Button>
+                        )}}>确认签署补充协议</Button> */}
                     </WingBlank>
                 </div>
             </div>

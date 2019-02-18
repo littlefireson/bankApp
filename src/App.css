@@ -174,3 +174,8 @@
 .backCardId :global(.am-image-picker-list .am-flexbox .am-flexbox-item:after){
   padding-bottom:60%;
 }
+
+.sign-input :global(.am-list-item .am-input-control){
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
