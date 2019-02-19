@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Nav from '../header/header';
 import style from '../App.css';
-import dsa from '../images/12312.gif'
+import { Result, Icon } from 'antd-mobile';
 
 
 class Success extends Component{
@@ -15,12 +15,13 @@ class Success extends Component{
         return (
             <div className={style.App}>
                 <Nav {...this.props} header={header}></Nav>
-            <div style={{marginTop:'40px'}}>
-                <img src={dsa} alt='' />
-                <div style={{width:'80%',margin:'20px auto'}}>
-                    <p>签署成功!</p>
-                    <p style={{textAlign:'left'}}>《补充协议书》已发送至您1301234578@163.com的邮箱中，请注意查收！</p>
-                </div>
+            <div className={style["result-example"]}>
+
+                <Result
+                    img={<Icon type="check-circle" className={style["spe"]} style={{ fill: '#1F90E6' }} />}
+                    title="签署成功"
+                    message={`《补充协议书》已发送至您${localStorage.email}的邮箱中，请注意查收！`}
+                />        
                 
             </div>
             </div>

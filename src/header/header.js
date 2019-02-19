@@ -3,6 +3,7 @@ import {Icon,NavBar} from 'antd-mobile';
 
 class Nav extends Component {
     render() {
+      console.log(this.props)
       return (
         <NavBar
           mode="dark"

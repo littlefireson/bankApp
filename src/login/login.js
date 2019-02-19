@@ -15,10 +15,8 @@ class Login extends Component{
     constructor(props){
         super(props)
         this.state = {
-            emailValue:"",
             phoneValue:"",
             codeValue:"",
-            emailError:false,
             phoneError:false,
             codeShow:false,
             codeMsg:"获取验证码",
@@ -29,18 +27,12 @@ class Login extends Component{
     }
     submit=()=>{
         const {
-            emailValue,
             phoneValue,
             codeValue,
-            emailError,
             phoneError,
             codeClick
         } = this.state;
         // console.log(this.props)
-        if(emailValue ==='' ||emailError){
-            Toast.fail('未填写邮箱或格式不正确')
-            return;
-        }
         if(phoneValue ==='' ||phoneError){
             Toast.fail('未填写手机号或格式不正确')
             return;
@@ -54,6 +46,7 @@ class Login extends Component{
             Toast.fail('验证码错误')
             return;
         }
+        window.localStorage.setItem('phone', phoneValue);
         this.props.history.push('/about');
     }
     countDown(){    
@@ -80,35 +73,6 @@ class Login extends Component{
             <p>
                 请使用手机号完成登录验证
             </p>
-                <WingBlank  size="md">
-                    <InputItem
-                        type='url'
-                        placeholder="请输入邮箱"
-                        clear
-                        error={this.state.emailError && this.state.emailValue!==""}
-                        onChange={(value)=>{
-                            if (value !== ' ' && value.replace(/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g, '')) {
-                                this.setState({
-                                    emailError: true,
-                                });
-                            } else {
-                                this.setState({
-                                    emailError: false,
-                                });
-                            }
-                            this.setState({
-                                emailValue:value
-                            })
-                        }}
-                        onErrorClick={()=>{
-                            Toast.info('邮箱格式不正确');
-                        }}
-                        value = {this.state.emailValue}
-                        // moneyKeyboardAlign="left"
-                        // moneyKeyboardWrapProps={moneyKeyboardWrapProps}
-                    >电子邮箱
-                    </InputItem>
-                </WingBlank>
                 <WhiteSpace size="lg" />
                 <WingBlank  size="md">
                 <InputItem
@@ -152,7 +116,7 @@ class Login extends Component{
                         })
                     }}
                     onErrorClick={()=>{
-                        Toast.info('邮箱格式不正确');
+                        Toast.info('手机格式不正确');
                     }}
                     value = {this.state.phoneValue}
                     // moneyKeyboardAlign="left"

@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
-import { Button , List, Icon} from 'antd-mobile';
+import { Button , List, Icon ,Pagination} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
 import WxImageViewer from 'react-wx-images-viewer';
 import Imagesviewer from '../imageViewer/imageViewer';
 import ZhangCheng from './zhangcheng';
+
+import PDF from 'react-pdf-js';
+
 const Item = List.Item;
 
 class Plan extends Component{
     submit=()=>{
-        this.props.history.push('/signIn');
+        this.props.history.push('/email');
     }
     originbodyScrollY = document.getElementsByTagName('body')[0].style.overflowY;
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -21,9 +25,19 @@ class Plan extends Component{
             require("../images/heyue.jpg"),
           ],
           index: 0,
-          isOpen: false 
-        };
+          isOpen: false ,
+          page:1,
+          pages:27 
+        }
     }
+    onDocumentComplete(pages)  {
+        this.setState({ page: 1, pages:pages });
+    }
+    onChange (page) {
+        this.setState({
+            page: page,
+        });
+      }
     onClose = () =>{
         this.setState({
           isOpen: false
@@ -42,13 +56,17 @@ class Plan extends Component{
         index,
         isOpen
       } = this.state;
+    const benjin = 154185.16,lixi =14644.62,weiyuejin = 37581.15,fuli = 307.57;
+    const zongji = benjin +lixi+weiyuejin+fuli;
+    const zhehou = (zongji * 0.74).toFixed(2)
     return (
         <div className={style.App}>
             <Nav  {...this.props} header={header}></Nav>
             <div className={style['Top-div']}>
-                <p className={style['Top-div-p']}>您的信用卡卡号为：6217000012345678945</p>
+                <p className={style['Top-div-p']}>您的信用卡卡号为：6226 2100 1125 7934</p>
                 <h3>减免后剩余应还（元）</h3>
-                <b>4561.23</b>
+                <b>154185.16</b>
+                {/* <b>{zhehou}</b> */}
                 <List className="my-list">
                     <Item arrow="horizontal" multipleLine onClick={() => {
                        this.props.history.push('/planDetails')
@@ -59,13 +77,13 @@ class Plan extends Component{
                 <div className={style['Top-div-content']}>
                     <p className={style['Top-div-content-title']}>减免前应还款金额</p>
                     <div className={style['Top-div-content-list']}>
-                        <p>本金<span>42354.00</span></p>
-                        <p>利息<span>42354.00</span></p>
-                        <p>违约金<span>42354.00</span></p>
-                        <p>复利<span>42354.00</span></p>
+                        <p>本金<span>{benjin}</span></p>
+                        <p>利息<span>{lixi}</span></p>
+                        <p>违约金<span>{weiyuejin}</span></p>
+                        <p>复利<span>{fuli}</span></p>
                     </div>
                     <p className={style['Top-div-content-list-total']}>
-                        <span>共计：5643.89 元</span>
+                        <span>共计：{zongji}</span>
                     </p>
                 </div>
             </div>
@@ -133,17 +151,35 @@ class Plan extends Component{
                                 </div>
                                 :''}
                             {this.state.config === 1?
-                            <ZhangCheng />
+                            <div>
+                                <div style={{overflow:'scroll',height:600}}>
+                                    <PDF file={require('../images/zhangzheng.pdf')} 
+                                    onDocumentComplete={this.onDocumentComplete.bind(this)}
+                                    page={this.state.page}
+                                    className={style['pdf-view']}
+                                    />
+                                </div>
+                                <Pagination  onChange={this.onChange.bind(this)} total={this.state.pages} current={this.state.page}/>
+                            </div>
                             :''}
                             {this.state.config === 2?
-                                <Imagesviewer urls={[require('../images/jiaoyi1.png'),require('../images/jiaoyi2.png')]} />
+                                 <div>
+                                   <div style={{overflow:'scroll',height:600}}>
+                                    <PDF file={require('../images/mingxi.pdf')} 
+                                    onDocumentComplete={this.onDocumentComplete.bind(this)}
+                                    page={this.state.page}
+                                    className={style['pdf-view']}
+                                    />
+                                    </div>
+                                 <Pagination  onChange={this.onChange.bind(this)} total={this.state.pages} current={this.state.page}/>
+                                </div>
                             :''}
                             
                         </div>
                     </div>
-                
+                 
                 </div>}
-            <Button type="primary" onClick={this.submit}>查看并签署补充协议</Button>
+            <Button type="primary" onClick={this.submit}>下一步</Button>
         </div>
     )
         

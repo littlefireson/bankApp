@@ -48,9 +48,26 @@ class SignIn extends Component{
         this.setState({
             [key]: true,
         });
+        this.handleCode();
+    }
+    handleCode = ()=>{
         if(this.state.codeClick){
-            this.countDown();
-        };
+            this.setState({
+                codeClick:false
+            },()=>{
+                if(this.state.maxtime<1){
+                    console.log(this.state.maxtime)
+                    this.setState({
+                        maxtime:59,
+                    }, ()=> {
+                        this.countDown();
+                    })
+                }else{
+                    console.log(this.state.maxtime)
+                    this.countDown();
+                }
+            })
+        }
     }
     onClose = key => () => {
     this.setState({
@@ -129,29 +146,32 @@ class SignIn extends Component{
           visible={this.state.modal1}
           transparent
           maskClosable={false}
-          onClose={this.onClose('modal1')}
           title="请输入验证码"
-          footer={[{ text: 'Ok', onPress: () => { 
-            setTimeout(() => {
-                        if(inputValue !== ''){
-                            if(inputValue === '8888'){
-                            this.onClose('modal1')();
-                            this.props.history.push('/success')
-                            }else{
-                            Toast.info('验证码错误', 1);
-                        }
-                    }else{
-                        Toast.info('请输入验证码', 1);
+          footer={[
+              { text:'取消',onPress:this.onClose('modal1')},
+              { text: '确定', onPress: () => { 
+                setTimeout(() => {
+                    if(inputValue !== ''){
+                        if(inputValue === '8888'){
+                        this.onClose('modal1')();
+                        this.props.history.push('/success')
+                        }else{
+                        Toast.info('验证码错误', 1);
                     }
-                    }, 1000);  
+                }else{
+                    Toast.info('请输入验证码', 1);
+                }
+                }, 1000);  
              } }]}
           wrapProps={{ onTouchStart: this.onWrapTouchStart }}
-          afterClose={() => { alert('afterClose'); }}
         >
-          <div style={{ height: 100, overflow: 'scroll' }}>
-            {this.state.codeMsg}
+          <div>
+            <p>验证码已发送到您<br/>{localStorage.phone}的手机上，请查收
+                <Button onClick={this.handleCode}>{this.state.codeMsg}</Button>
+            </p>
+            
             <div>
-                <div className="sign-input">
+                <div className={style['sign-input']}>
                     <label>
                         <InputItem 
                         onChange={(value)=>{

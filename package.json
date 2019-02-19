@@ -4,11 +4,15 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.0.0",
+    "axios": "^0.18.0",
     "rc-form": "^2.4.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-pdf-js": "^4.0.2",
+    "react-read-pdf": "^2.0.9",
     "react-scripts": "1.0.13",
-    "react-wx-images-viewer": "0.0.1"
+    "react-wx-images-viewer": "0.0.1",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
@@ -16,6 +20,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "proxy":"https://api-cn.faceplusplus.com",
   "devDependencies": {
     "babel-plugin-import": "^1.2.0",
     "less": "^2.7.3",
