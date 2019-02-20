@@ -6,7 +6,6 @@ import { Result, Icon } from 'antd-mobile';
 
 class Success extends Component{
     submit=()=>{
-        // console.log(this.props)
         this.props.history.push('/about');
     }
     render() {

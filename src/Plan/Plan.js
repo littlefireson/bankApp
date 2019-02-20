@@ -65,7 +65,7 @@ class Plan extends Component{
             <div className={style['Top-div']}>
                 <p className={style['Top-div-p']}>您的信用卡卡号为：6226 2100 1125 7934</p>
                 <h3>减免后剩余应还（元）</h3>
-                <b>154185.16</b>
+                <b>168829.78</b>
                 {/* <b>{zhehou}</b> */}
                 <List className="my-list">
                     <Item arrow="horizontal" multipleLine onClick={() => {

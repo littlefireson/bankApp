@@ -11,7 +11,6 @@ class PlanDetails extends Component{
         super(props)
     }
     submit=()=>{
-        // console.log(this.props)
         this.props.history.push('/about');
     }
     render() {
@@ -22,7 +21,7 @@ class PlanDetails extends Component{
             <div className={style['fenqi-fixed']}>
                 <Nav {...this.props} header={header}></Nav>
                 <div className={style.fenqiContent}>
-                    <p>分期金额：<b>154185.16元</b></p>
+                    <p>分期金额：<b>168829.78元</b></p>
                     <p>分期期数：12期</p>
                     <p>账单日：每月7日</p>
                 </div>
@@ -30,75 +29,75 @@ class PlanDetails extends Component{
             <div className={style['fenqi-list']}>
                 <List>
                     <Item>
-                        <p>第一期：2019-01-07<span>12848.76元</span></p>
+                        <p>第一期：2019-03-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第二期：2019-02-07<span>12848.76元</span></p>
+                        <p>第二期：2019-04-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第三期：2019-03-07<span>12848.76元</span></p>
+                        <p>第三期：2019-05-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第四期：2019-04-07<span>12848.76元</span></p>
+                        <p>第四期：2019-06-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第五期：2019-05-07<span>12848.76元</span></p>
+                        <p>第五期：2019-07-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第六期：2019-06-07<span>12848.76元</span></p>
+                        <p>第六期：2019-08-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第七期：2019-07-07<span>12848.76元</span></p>
+                        <p>第七期：2019-09-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第八期：2019-08-07<span>12848.76元</span></p>
+                        <p>第八期：2019-10-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第九期：2019-09-07<span>12848.76元</span></p>
+                        <p>第九期：2019-11-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十期：2019-10-07<span>12848.76元</span></p>
+                        <p>第十期：2019-12-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十一期：2019-11-07<span>12848.76元</span></p>
+                        <p>第十一期：2020-01-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                     <Item>
-                        <p>第十二期：2019-12-07<span>12848.76元</span></p>
+                        <p>第十二期：2020-02-07<span>14069.15元</span></p>
                         <div className={style['fenqi-list-content']}>
-                            <p>本金：12848.76元</p>
+                            <p>本金：14069.15元</p>
                         </div>
                     </Item>
                 </List>

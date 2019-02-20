@@ -3,7 +3,7 @@ import { Button , Flex,InputItem ,WingBlank, WhiteSpace ,List,Picker, DatePicker
 import Nav from '../header/header';
 import ImagePickerExample from '../imagePicker/imagePicker';
 import style from '../App.css';
-import {fetch as fetchPolyfill} from 'whatwg-fetch'
+import ImageCrop from '../imageCrop/imageCrop'
 import http from '../sever'
 const AgreeItem = Checkbox.AgreeItem;
 const sexs = [
@@ -83,14 +83,14 @@ class About extends Component{
             bankCardValue:'',
             imgFlag1:false,
             imgFlag2:false,
-            changqi:false
+            changqi:false,
+            birthday:''
         }
     }
     submit=()=>{
 
-        const {nameValue,sexValue,nationValue,birthdayValue,adressValue,
+        let {nameValue,sexValue,nationValue,birthdayValue,adressValue,
             cardIdValue,startDate,endDate,bankCardValue,phoneValue,codeValue,changqi,imgFlag1,imgFlag2} = this.state
-            console.log(bankCardValue)
         if(!imgFlag1){
             Toast.fail('请上传或拍摄身份证正面照片');
             return false;
@@ -145,6 +145,20 @@ class About extends Component{
             return false;
         }
         window.localStorage.setItem('yuPhone',phoneValue)
+        const year = birthdayValue.getFullYear();
+        const month = birthdayValue.getMonth()+1;
+        const day = birthdayValue.getDate();
+        var obj = {
+            name:nameValue,
+            sex:sexValue==0?'男':'女',
+            nation:nations[nationValue],
+            birthday:year+'-'+month+'-'+day,
+            address:adressValue,
+            cardId:cardIdValue,
+        }
+        obj = JSON.stringify(obj);
+        window.localStorage.setItem('xinxi',obj);
+
         this.props.history.push('/plan');
     }
     countDown(){    
@@ -163,34 +177,34 @@ class About extends Component{
         },1000)
 }
     onChange = (value) => {
-        console.log('checkbox');
         this.setState({
             value,
             });
         };
+
     handleImg=(val,type)=>{
-        if(val.length>0){
+        if(val){
             this.setState({ animating: !this.state.animating });
             http.post('https://api-cn.faceplusplus.com/cardpp/v1/ocridcard', {
                 api_key: 'PSAzPu3GmUPiWe54pqsZ_f5t-03QNLbw',
                 api_secret: 'T-Nt7ZtDsinbcbWvy_1TAcl4NXh5HSYe',
-                image_base64: val.length>0?val[0].url:''
+                image_base64: val?val:''
               })
               .then((response)=>{
                   if(response.data.cards[0].side=='front'){
                     var index = nations.indexOf(response.data.cards[0].race);
-                    console.log()
+
                     this.setState({
-                      imgFlag1:true,
-                      nameValue:response.data.cards[0].name,
-                      sexValue:response.data.cards[0].gender=='男'?[0]:[1],
-                      adressValue:response.data.cards[0].address,
-                      cardIdValue:response.data.cards[0].id_card_number,
-                      nationValue:index!=-1?[index]:[],
-                      birthdayValue:new Date(response.data.cards[0].birthday),
-                      animating: !this.state.animating
-                  })
-                  }else{
+                        imgFlag1:true,
+                        nameValue:response.data.cards[0].name,
+                        sexValue:response.data.cards[0].gender=='男'?[0]:[1],
+                        adressValue:response.data.cards[0].address,
+                        cardIdValue:response.data.cards[0].id_card_number,
+                        nationValue:index!=-1?[index]:[],
+                        birthdayValue:new Date(response.data.cards[0].birthday),
+                        animating: !this.state.animating
+                        })
+                    }else{
                     var startDate = new Date(response.data.cards[0].valid_date.split('-')[0].replace(/\./g, "\/")),endDate
                     if(response.data.cards[0].valid_date.split('-')[1] == '长期'){
                         endDate = "长期"
@@ -242,7 +256,6 @@ class About extends Component{
         
     }
     render() {
-        console.log(this.state.imgUrl1)
         let {nameValue,adressValue,cardIdValue,bankCardValue} = this.state;
     const header = "请完善信息"
     const nationsCol = nations.map((item,i)=>{
@@ -263,11 +276,11 @@ class About extends Component{
             {(!this.state.imgFlag1 ||!this.state.imgFlag2)&&<p className={style['cardIdTitle']}>请拍摄实体身份证或上传身份证照片，并录入信息</p>}
             <Flex>
                 <Flex.Item className={style['cardId']}>
-                    <ImagePickerExample side='front' changeImg = {this.handleImg.bind(this)}/>
+                    <ImageCrop side='front' changeImg = {this.handleImg.bind(this)}/>
                     {!this.state.imgFlag1 && <span>请上传身份证正面</span>}
                 </Flex.Item>
                 <Flex.Item className={style['backCardId']}>
-                    <ImagePickerExample side='back' changeImg = {this.handleImg.bind(this)}/>
+                    <ImageCrop side='back' changeImg = {this.handleImg.bind(this)}/>
                     {!this.state.imgFlag2 && <span>请上传身份证反面</span>}
                 </Flex.Item>
             </Flex>
@@ -318,7 +331,8 @@ class About extends Component{
                     title="出生日期"
                     extra="请选择日期"
                     value={this.state.birthdayValue}
-                    onChange={date => this.setState({ birthdayValue:date })}
+                    onChange={ (date)=>{
+                        this.setState({ birthdayValue:date })} }
                     minDate = {new Date(1970, 1, 1, 0, 0, 0)}
                     >
                     <List.Item arrow="horizontal">出生日期</List.Item>
@@ -357,7 +371,6 @@ class About extends Component{
                     <AgreeItem data-seed="logId"
                     checked={this.state.changqi}
                     onChange={() =>{
-                        console.log(this.state.changqi)
                         this.setState({changqi:!this.state.changqi,endDate:""})}}>
                          <a >长期</a>
                     </AgreeItem>
@@ -419,14 +432,12 @@ class About extends Component{
                                 codeClick:false
                             },()=>{
                                 if(this.state.maxtime<1){
-                                    console.log(this.state.maxtime)
                                     this.setState({
                                         maxtime:59,
                                     }, ()=> {
                                         this.countDown();
                                     })
                                 }else{
-                                    console.log(this.state.maxtime)
                                     this.countDown();
                                 }
                             })

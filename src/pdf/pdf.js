@@ -15,7 +15,6 @@ class PDF extends React.Component {
     }
     componentDidMount () {
         PDFJS.getDocument(this.props.src).then((pdf) => {
-            console.log(pdf)
             this.setState({ pdf })
         })
     }
@@ -65,7 +64,6 @@ class Page extends React.Component {
         this.setState({ status: 'rendering' })
     } 
     _renderPage (page) {
-        console.log(page)
         let { scale } = this.context 
         let viewport = page.getViewport(scale)
         let { width, height } = viewport

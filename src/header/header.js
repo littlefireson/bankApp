@@ -3,13 +3,11 @@ import {Icon,NavBar} from 'antd-mobile';
 
 class Nav extends Component {
     render() {
-      console.log(this.props)
       return (
         <NavBar
           mode="dark"
           icon={this.props.header !== '民生银行补充协议' ? <Icon type="left" />:""}
           onLeftClick={()=>{
-            console.log(this.props)
             this.props.history.goBack();
           }}
         >{this.props.header}</NavBar>

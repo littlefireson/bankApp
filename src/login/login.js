@@ -32,7 +32,7 @@ class Login extends Component{
             phoneError,
             codeClick
         } = this.state;
-        // console.log(this.props)
+
         if(phoneValue ==='' ||phoneError){
             Toast.fail('未填写手机号或格式不正确')
             return;
@@ -41,7 +41,6 @@ class Login extends Component{
             Toast.fail('请填写验证码')
             return;
         }
-        console.log(codeClick)
         if((codeValue !=='8888')){
             Toast.fail('验证码错误')
             return;
@@ -87,14 +86,12 @@ class Login extends Component{
                                 codeClick:false
                             },()=>{
                                 if(this.state.maxtime<1){
-                                    console.log(this.state.maxtime)
                                     this.setState({
                                         maxtime:59,
                                     }, ()=> {
                                         this.countDown();
                                     })
                                 }else{
-                                    console.log(this.state.maxtime)
                                     this.countDown();
                                 }
                             })

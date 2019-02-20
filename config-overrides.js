@@ -93,5 +93,5 @@ module.exports = function override(config, env) {
   let l = getLoader(config.module.rules, fileLoaderMatcher);
   l.exclude.push(/\.less$/);
 
-  return config;
+  return config; 
 };

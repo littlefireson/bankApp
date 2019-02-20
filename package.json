@@ -7,7 +7,10 @@
     "axios": "^0.18.0",
     "rc-form": "^2.4.1",
     "react": "^15.6.1",
+    "react-core-image-upload": "^2.2.3",
+    "react-cropper": "^1.2.0",
     "react-dom": "^15.6.1",
+    "react-image-crop": "^6.0.13",
     "react-pdf-js": "^4.0.2",
     "react-read-pdf": "^2.0.9",
     "react-scripts": "1.0.13",
@@ -20,7 +23,8 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy":"https://api-cn.faceplusplus.com",
+  "homepage":".",
+  "proxy": "https://api-cn.faceplusplus.com",
   "devDependencies": {
     "babel-plugin-import": "^1.2.0",
     "less": "^2.7.3",
