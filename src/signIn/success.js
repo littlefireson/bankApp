@@ -19,7 +19,7 @@ class Success extends Component{
                 <Result
                     img={<Icon type="check-circle" className={style["spe"]} style={{ fill: '#1F90E6' }} />}
                     title="签署成功"
-                    message={`《补充协议书》已发送至您${localStorage.email}的邮箱中，请注意查收！`}
+                    message={`《救助协议书》已发送至您${localStorage.email}的邮箱中，请注意查收！`}
                 />        
                 
             </div>

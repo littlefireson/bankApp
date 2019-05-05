@@ -5,8 +5,6 @@ class Email extends Component {
 
   state = {
     emailValue:"",
-    phoneValue:"",
-    codeValue:"",
     emailError:false,
   };
 
@@ -26,10 +24,7 @@ class Email extends Component {
   render() {
     const {
       emailValue,
-      phoneValue,
-      codeValue,
       emailError,
-      phoneError,
   } = this.state;
     const header = '填写邮箱'
     return (
@@ -37,7 +32,7 @@ class Email extends Component {
       <Nav {...this.props} header={header}></Nav>
         <div className="img-list">
           <WingBlank size='lg'>
-            <h4>您填写的邮箱将用于收取补充协议书</h4>
+            <h4>您填写的邮箱将用于收取救助协议书</h4>
             <p>请正确的填写您的邮箱</p>
           </WingBlank>
           <WhiteSpace/>
@@ -65,8 +60,6 @@ class Email extends Component {
                             Toast.info('邮箱格式不正确');
                         }}
                         value = {this.state.emailValue}
-                        // moneyKeyboardAlign="left"
-                        // moneyKeyboardWrapProps={moneyKeyboardWrapProps}
                     >电子邮箱
                     </InputItem>
           </WingBlank>
@@ -80,7 +73,7 @@ class Email extends Component {
             }
             window.localStorage.setItem('email',emailValue)
             this.props.history.push('/signIn')
-          }}>查看并签署补充协议</Button>
+          }}>查看并签署救助协议</Button>
           </WingBlank>
         </div>
         

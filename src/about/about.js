@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Button , Flex,InputItem ,WingBlank, WhiteSpace ,List,Picker, DatePicker,Toast,ActivityIndicator,Checkbox} from 'antd-mobile';
 import Nav from '../header/header';
-import ImagePickerExample from '../imagePicker/imagePicker';
 import style from '../App.css';
 import ImageCrop from '../imageCrop/imageCrop'
 import http from '../sever'
@@ -27,34 +26,34 @@ var nations = ["汉","蒙古","回","藏","维吾尔","苗","彝","壮","布依"
     "土","达斡尔","仫佬","羌","布朗","撒拉","毛南","仡佬","锡伯","阿昌","普米","塔吉克","怒", "乌孜别克",  
     "俄罗斯","鄂温克","德昂","保安","裕固","京","塔塔尔","独龙","鄂伦春","赫哲","门巴","珞巴","基诺"]; 
 
-    const nowTimeStamp = Date.now();
-    const now = new Date(nowTimeStamp);
+    // const nowTimeStamp = Date.now();
+    // const now = new Date(nowTimeStamp);
     // GMT is not currently observed in the UK. So use UTC now.
-    const utcNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
+    // const utcNow = new Date(now.getTime() + (now.getTimezoneOffset() * 60000));
     
-    // Make sure that in `time` mode, the maxDate and minDate are within one day.
-    let minDate = new Date(-2208977672);
-    const maxDate = new Date(nowTimeStamp + 1e7);
-    const defaultDate = new Date (631167071);
-    function formatDate(date) {
-      /* eslint no-confusing-arrow: 0 */
-      const pad = n => n < 10 ? `0${n}` : n;
-      const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
-      const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-      return `${dateStr} ${timeStr}`;
-    }
+    // // Make sure that in `time` mode, the maxDate and minDate are within one day.
+    // let minDate = new Date(-2208977672);
+    // const maxDate = new Date(nowTimeStamp + 1e7);
+    // const defaultDate = new Date (631167071);
+    // function formatDate(date) {
+    //   /* eslint no-confusing-arrow: 0 */
+    //   const pad = n => n < 10 ? `0${n}` : n;
+    //   const dateStr = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+    //   const timeStr = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+    //   return `${dateStr} ${timeStr}`;
+    // }
     
-    // If not using `List.Item` as children
-    // The `onClick / extra` props need to be processed within the component
-    const CustomChildren = ({ extra, onClick, children }) => (
-      <div
-        onClick={onClick}
-        style={{ backgroundColor: '#fff', height: '45px', lineHeight: '45px', padding: '0 15px' }}
-      >
-        {children}
-        <span style={{ float: 'right', color: '#888' }}>{extra}</span>
-      </div>
-    );
+    // // If not using `List.Item` as children
+    // // The `onClick / extra` props need to be processed within the component
+    // const CustomChildren = ({ extra, onClick, children }) => (
+    //   <div
+    //     onClick={onClick}
+    //     style={{ backgroundColor: '#fff', height: '45px', lineHeight: '45px', padding: '0 15px' }}
+    //   >
+    //     {children}
+    //     <span style={{ float: 'right', color: '#888' }}>{extra}</span>
+    //   </div>
+    // );
 class About extends Component{
     constructor(props){
         super(props)
@@ -91,6 +90,7 @@ class About extends Component{
 
         let {nameValue,sexValue,nationValue,birthdayValue,adressValue,
             cardIdValue,startDate,endDate,bankCardValue,phoneValue,codeValue,changqi,imgFlag1,imgFlag2} = this.state
+        debugger;
         if(!imgFlag1){
             Toast.fail('请上传或拍摄身份证正面照片');
             return false;
@@ -140,7 +140,7 @@ class About extends Component{
             Toast.fail('请输入验证码');
             return false;
         }
-        if(codeValue != 8888){
+        if(codeValue !== '8888'){
             Toast.fail('验证码错误');
             return false;
         }
@@ -150,7 +150,7 @@ class About extends Component{
         const day = birthdayValue.getDate();
         var obj = {
             name:nameValue,
-            sex:sexValue==0?'男':'女',
+            sex:sexValue===0?'男':'女',
             nation:nations[nationValue],
             birthday:year+'-'+month+'-'+day,
             address:adressValue,
@@ -191,22 +191,22 @@ class About extends Component{
                 image_base64: val?val:''
               })
               .then((response)=>{
-                  if(response.data.cards[0].side=='front'){
+                  if(response.data.cards[0].side==='front'){
                     var index = nations.indexOf(response.data.cards[0].race);
 
                     this.setState({
                         imgFlag1:true,
                         nameValue:response.data.cards[0].name,
-                        sexValue:response.data.cards[0].gender=='男'?[0]:[1],
+                        sexValue:response.data.cards[0].gender==='男'?[0]:[1],
                         adressValue:response.data.cards[0].address,
                         cardIdValue:response.data.cards[0].id_card_number,
-                        nationValue:index!=-1?[index]:[],
+                        nationValue:index!==-1?[index]:[],
                         birthdayValue:new Date(response.data.cards[0].birthday),
                         animating: !this.state.animating
                         })
                     }else{
-                    var startDate = new Date(response.data.cards[0].valid_date.split('-')[0].replace(/\./g, "\/")),endDate
-                    if(response.data.cards[0].valid_date.split('-')[1] == '长期'){
+                    var startDate = new Date(response.data.cards[0].valid_date.split('-')[0].replace(/\./g, "/")),endDate
+                    if(response.data.cards[0].valid_date.split('-')[1] === '长期'){
                         endDate = "长期"
                         this.setState({
                             imgFlag2:true,
@@ -217,7 +217,7 @@ class About extends Component{
                         })
 
                     }else{
-                        endDate = new Date(response.data.cards[0].valid_date.split('-')[1].replace(/\./g, "\/"))
+                        endDate = new Date(response.data.cards[0].valid_date.split('-')[1].replace(/\./g, "/"))
                         this.setState({
                             imgFlag2:true,
                             startDate:startDate,
@@ -235,7 +235,7 @@ class About extends Component{
                 Toast.fail('请上传正确的身份证照片');
               });
         }else{
-            if(type==0){
+            if(type===0){
                 this.setState({
                     nameValue:"",
                     sexValue:"",

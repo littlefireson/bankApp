@@ -3,9 +3,10 @@ import ReactCrop from 'react-image-crop';
 import {Modal} from 'antd-mobile'
 import 'react-image-crop/dist/ReactCrop.css';
 import style from '../App.css';
-
+import ExifOrientationImg from 'react-exif-orientation-img'
 // const aa = require("../load-image/load-image-exif.js") 
-
+import EXIF from '../exif/exif'
+import { func } from 'prop-types';
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -32,12 +33,30 @@ class ImageCrop extends Component {
 
   onSelectFile = e => {
     // loadImage.parseMetaData
-    console.log('onSelectFile')
+    console.log(e.target.files.name)
+    var self = this
+    EXIF.getData(e.target.files[0], function() {
+      self.setState({Orientation:EXIF.getAllTags(this).Orientation})
+    });
+    const canvas = document.createElement('canvas');
+    
     if (e.target.files && e.target.files.length > 0) {
       const reader = new FileReader();
       const name = e.target.files.name
-      reader.addEventListener('load', () =>
-        this.setState({ src: reader.result ,modal1:true,value:name}),
+      reader.addEventListener('load', () =>{
+
+        // if(canvas.getContext){
+        //   var ctx = canvas.getContext("2d");
+        //   var img = new Image();
+        //   img.src = reader.result;
+        
+          
+        //   ctx.drawImage(img, 10, 10);
+        // }
+
+
+        this.setState({ src: reader.result ,modal1:true,value:name})
+      },
       );
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -77,7 +96,13 @@ class ImageCrop extends Component {
     canvas.width = pixelCrop.width;
     canvas.height = pixelCrop.height;
     const ctx = canvas.getContext('2d');
-
+    // if(this.state.Orientation == '6'){
+    //   ctx.rotate(90*Math.PI/180);
+    // }else if(this.state.Orientation == '8'){
+    //     ctx.rotate(3 * 90 * Math.PI / 180);
+    // }else if(this.state.Orientation == '3'){
+    //   ctx.rotate(Math.PI);
+    // }
     ctx.drawImage(
       image,
       pixelCrop.x,
@@ -158,6 +183,7 @@ class ImageCrop extends Component {
             </div>
           </div>
         </div>
+        
         {modal1 && (
          <Modal
          visible={this.state.modal1}
@@ -166,7 +192,7 @@ class ImageCrop extends Component {
          title="请剪切图片"
          footer={[
              { text: '确定', onPress: () => { 
-              if(this.props.side == 'front'){
+              if(this.props.side === 'front'){
                 this.props.changeImg(fileUrl,0);
               }else{
                 this.props.changeImg(fileUrl,1);
@@ -176,7 +202,11 @@ class ImageCrop extends Component {
          wrapProps={{ onTouchStart: this.onWrapTouchStart }}
          >
 
-        
+        <ExifOrientationImg
+          src={src}
+          style={{width:'100%'}}
+          alt="A waterfall"
+        /> 
           <ReactCrop
             src={src}
             crop={crop}

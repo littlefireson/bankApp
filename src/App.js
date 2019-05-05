@@ -6,7 +6,7 @@ import Nav from './header/header';
 
 class App extends Component {
   render() {
-    const header = "民生银行补充协议"
+    const header = "民生银行救助协议"
     return (
       <div className={styles.App}>
         <Nav  {...this.props} header={header}></Nav>

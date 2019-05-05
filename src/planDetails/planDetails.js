@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { Button , InputItem ,List ,WingBlank, WhiteSpace } from 'antd-mobile';
+import {List} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
 
 const Item = List.Item;
-const Brief = Item.Brief;
+// const Brief = Item.Brief;
 
 class PlanDetails extends Component{
-    constructor(props){
-        super(props)
-    }
     submit=()=>{
         this.props.history.push('/about');
     }

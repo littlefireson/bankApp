@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Button  ,WingBlank, Toast ,Modal,InputItem,Flex} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
-import Input from 'antd-mobile/lib/input-item/Input';
 
-const prompt = Modal.prompt;
 function closest(el, selector) {
     const matchesSelector = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector || el.msMatchesSelector;
     while (el) {
@@ -82,19 +80,19 @@ class SignIn extends Component{
         }
     }
     render() {
-        const header = '签署补充协议'
+        const header = '签署救助协议'
         const {inputValue}  = this.state;
         // const { getFieldProps } = this.props.form;
         const obj=JSON.parse(localStorage.getItem("xinxi"));
-        const {phone,email} = localStorage
-        let {name,sex,nation,birthday,cardId,address} = obj;
+        const {phone='',email=''} = localStorage
+        let {name='',sex='',nation='',birthday='',cardId='',address=''} = obj;
         return (
             <div>
             <div className={style['fenqi-fixed']}>
                 <Nav {...this.props} header={header}></Nav>
             </div>
             <div className={style['signIn-content']}>
-                <h3 style={{textAlign:'center'}}>补充协议书</h3>
+                <h3 style={{textAlign:'center'}}>《救助协议书》</h3>
                 <p>
                     甲方（银行）： 中国民生银行股份有限公司信用卡中心 ，住所：                    , 社会统一信用代码：                     ，负责人：            ，职务：               ，身份证号：                   ，联系电话：                ，电子邮箱：          。
                 </p>
@@ -117,7 +115,7 @@ class SignIn extends Component{
                 <p>3、还款期限：自2019年3月7日至2020年2月7日止；首次还款日期为2019年3月7日，末次还款日期为2020年2月7日；</p>
                 <p>4、每期还款金额14069.15元（计算方法：以本协议第二条第1、2款逾期本金及利息总额/分期期数）。</p>
                 <p>四、逾期还款的约定</p>
-                <p>1、乙方若未按照《补充协议》第二条约定每期按时、足额进行还款，则乙方应根据本协议第二条第1、2款本金和利息总额168829.78元，作为信用卡欠款本金，以24%/年的标准收取逾期还款利息，并且需要支付至乙方实际还款之日至；</p>
+                <p>1、乙方若未按照《救助协议》第二条约定每期按时、足额进行还款，则乙方应根据本协议第二条第1、2款本金和利息总额168829.78元，作为信用卡欠款本金，以24%/年的标准收取逾期还款利息，并且需要支付至乙方实际还款之日至；</p>
                 <p>2、乙方的逾期还款将首先用于偿还本协议约定的应由乙方承担的各项费用及实现债权的费用（以下统称为“费用”，如有），包括但不限于仲裁费、仲裁服务费、律师代理费、催收费用等，剩余款项按照逾期利息、借款利息、借款本金的先后顺序支付，且甲方有权对前述顺序作出合理调整。</p>
                 <p>五、协议的解除</p>
                 <p>1、如乙方任意一期本金和利息出现逾期，包括不完全履行的情形，甲方即有权单方解除该协议；</p>
@@ -131,7 +129,7 @@ class SignIn extends Component{
                 <p>4、甲乙双方确认并同意：仲裁机构对合同争议做出裁决后，仲裁当事人任何一方可以将裁决书、调解书在第三方平台向全社会公开，并向征信机构报告违约事项。</p>
                 <p>七、其他</p>
                 <p>1、本协议是对原《中国民生银行民生信用卡章程》以及《民生信用卡（个人卡）领用合约》的补充，如果本协议与原章程、合约不一致，以本协议为准；</p>
-                <p>2、在本《补充协议》后附上乙方《民生理财白金信用卡》、《中国民生银行民生信用卡章程》、《民生信用卡（个人卡）领用合约》、《交易明细》、《账单明细》、《分期活动细则》、《分期合同》等；</p>
+                <p>2、在本《救助协议》后附上乙方《民生理财白金信用卡》、《中国民生银行民生信用卡章程》、《民生信用卡（个人卡）领用合约》、《交易明细》、《账单明细》、《分期活动细则》、《分期合同》等；</p>
                 <p>3、本协议为电子文本合同，以自动签章认证的形式生成，2005年4月1日实施的《中华人民共和国电子签名法》以法律的形式确定了“电子签名”的有效性，在此各乙方承诺对自动签章认证所生成的电子协议予以认可，并自愿承担相应的法律责任；</p>
                 <p>4、本合同一式贰份，双方各持壹份，签署后立即生效。（以下无正文）</p>
                 <Flex>
@@ -149,7 +147,7 @@ class SignIn extends Component{
             </div>
                 <div className={style['fixed-bottom']}>
                     <WingBlank>
-                    <Button type="primary" onClick={this.showModal('modal1')}>确认签署补充协议</Button>
+                    <Button type="primary" onClick={this.showModal('modal1')}>确认签署救助协议</Button>
         {/* <WhiteSpace /> */}
         <Modal
           visible={this.state.modal1}
@@ -164,7 +162,7 @@ class SignIn extends Component{
                         if(inputValue === '8888'){
                         this.onClose('modal1')();
                         this.props.history.push('/success')
-                        }else{
+                        }else{ 
                         Toast.info('验证码错误', 1);
                     }
                 }else{
@@ -197,7 +195,7 @@ class SignIn extends Component{
           </div>
         </Modal>
                         {/* <Button type="primary" onClick={()=>{this.showModal('modal1')}}>
-                            确认签署补充协议
+                            确认签署救助协议
                         </Button>
                         <Modal
                             visible={this.state.modal1}
@@ -262,7 +260,7 @@ class SignIn extends Component{
 
                         ],
                         'default', null,
-                        )}}>确认签署补充协议</Button> */}
+                        )}}>确认签署救助协议</Button> */}
                     </WingBlank>
                 </div>
             </div>

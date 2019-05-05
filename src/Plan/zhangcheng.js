@@ -1,9 +1,4 @@
 import React, { Component } from 'react'
-import { Button , List, Icon} from 'antd-mobile';
-import Nav from '../header/header';
-import style from '../App.css';
-import WxImageViewer from 'react-wx-images-viewer';
-import Imagesviewer from '../imageViewer/imageViewer';
 
 class ZhangCheng extends Component{
     render(){

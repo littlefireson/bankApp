@@ -3,8 +3,8 @@ import { Button , List, Icon ,Pagination} from 'antd-mobile';
 import Nav from '../header/header';
 import style from '../App.css';
 import WxImageViewer from 'react-wx-images-viewer';
-import Imagesviewer from '../imageViewer/imageViewer';
-import ZhangCheng from './zhangcheng';
+// import Imagesviewer from '../imageViewer/imageViewer';
+// import ZhangCheng from './zhangcheng';
 
 import PDF from 'react-pdf-js';
 
@@ -58,7 +58,7 @@ class Plan extends Component{
       } = this.state;
     const benjin = 154185.16,lixi =14644.62,weiyuejin = 37581.15,fuli = 307.57;
     const zongji = benjin +lixi+weiyuejin+fuli;
-    const zhehou = (zongji * 0.74).toFixed(2)
+    // const zhehou = (zongji * 0.74).toFixed(2)
     return (
         <div className={style.App}>
             <Nav  {...this.props} header={header}></Nav>

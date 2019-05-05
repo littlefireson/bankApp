@@ -25,7 +25,6 @@ class Imagesviewer extends Component {
 
   render() {
     const {
-      imags,
       index,
       isOpen
     } = this.state;

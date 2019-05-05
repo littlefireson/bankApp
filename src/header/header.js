@@ -6,7 +6,7 @@ class Nav extends Component {
       return (
         <NavBar
           mode="dark"
-          icon={this.props.header !== '民生银行补充协议' ? <Icon type="left" />:""}
+          icon={this.props.header !== '民生银行救助协议' ? <Icon type="left" />:""}
           onLeftClick={()=>{
             this.props.history.goBack();
           }}

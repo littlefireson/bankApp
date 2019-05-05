@@ -30,7 +30,6 @@ class Login extends Component{
             phoneValue,
             codeValue,
             phoneError,
-            codeClick
         } = this.state;
 
         if(phoneValue ==='' ||phoneError){

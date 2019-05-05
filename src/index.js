@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter,Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter,Switch, Route } from 'react-router-dom';
 import About from './about/about';
 import Plan from './Plan/Plan';
 import PlanDetails from './planDetails/planDetails';
